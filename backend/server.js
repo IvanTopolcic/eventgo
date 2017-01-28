@@ -1,5 +1,33 @@
 var express = require('express')
 var app = express()
+var Sequelize = require('sequelize');
+var sequelize = new Sequelize('mysql://eventgo:asdf12345@best-ever.org:3306/eventgo');
+
+var Event = sequelize.define('event', {
+	name: {
+		type: Sequelize.STRING
+	},
+	longitude: {
+		type: Sequelize.DECIMAL(9, 6)
+	},
+	latitude: {
+		type: Sequelize.DECIMAL(9, 6)
+	},
+	start: {
+		type: Sequelize.DATE
+	},
+	end: {
+		type: Sequelize.DATE
+	}
+});
+
+var Attendee = sequelize.define('attendee', {
+	ip: {
+		type: Sequelize.STRING(15)
+	}
+});
+
+sequelize.sync();
 
 app.get('/',function(req,res){
   res.sendFile('/Users/puranikk/Documents/Repos/eventgo/frontend/index.html');
