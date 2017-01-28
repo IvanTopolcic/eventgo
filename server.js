@@ -43,7 +43,7 @@ app.get('/events/get/:id', function(req, res) {
 });
 
 app.post('/events/add', function(req, res) {
-	Evnt.create(req.body).then(function(function(events) {
+	Evnt.create(req.body).then(function(events) {
 		res.json(events);
 	});
 });
