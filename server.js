@@ -1,8 +1,10 @@
-var express = require('express')
-var app = express()
+var express = require('express');
+var app = express();
 var Sequelize = require('sequelize');
-var sequelize = new Sequelize('mysql://eventgo:asdf12345@best-ever.org:3306/eventgo')
-var bodyParser = require('body-parser')
+var sequelize = new Sequelize('mysql://eventgo:asdf12345@best-ever.org:3306/eventgo');
+var bodyParser = require('body-parser');
+
+app.use(bodyParser.json());
 
 var Evnt = sequelize.define('event', {
 	name: {
@@ -37,17 +39,19 @@ app.get('/events/get/all', function(req, res) {
 });
 
 app.get('/events/get/:id', function(req, res) {
-  Evnt.findById(req.params.id).then(function(events) {
+	Evnt.findById(req.params.id).then(function(events) {
 		res.json(events);
 	});
 });
 
 app.post('/events/add', function(req, res) {
-	// Evnt.create({name: req.})
+	Evnt.create(req.body).then(function(events) {
+		res.json(events);
+	});
 });
 
 app.get('/helloWorld', function (req, res) {
-  res.send('Hello World!')
+	res.send('Hello World!')
 })
 
 app.get('/',function(req,res){
