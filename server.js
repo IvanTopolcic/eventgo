@@ -1,8 +1,10 @@
-var express = require('express')
-var app = express()
+var express = require('express');
+var app = express();
 var Sequelize = require('sequelize');
-var sequelize = new Sequelize('mysql://eventgo:asdf12345@best-ever.org:3306/eventgo')
-var bodyParser = require('body-parser')
+var sequelize = new Sequelize('mysql://eventgo:asdf12345@best-ever.org:3306/eventgo');
+var bodyParser = require('body-parser');
+
+app.use(bodyParser.json());
 
 var Evnt = sequelize.define('event', {
 	name: {
