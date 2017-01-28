@@ -1,9 +1,10 @@
 var express = require('express')
 var app = express()
 var Sequelize = require('sequelize');
-var sequelize = new Sequelize('mysql://eventgo:asdf12345@best-ever.org:3306/eventgo');
+var sequelize = new Sequelize('mysql://eventgo:asdf12345@best-ever.org:3306/eventgo')
+var bodyParser = require('body-parser')
 
-var Event = sequelize.define('event', {
+var Evnt = sequelize.define('event', {
 	name: {
 		type: Sequelize.STRING
 	},
@@ -29,9 +30,34 @@ var Attendee = sequelize.define('attendee', {
 
 sequelize.sync();
 
+<<<<<<< HEAD
 app.get('/',function(req,res){
   res.sendFile('../frontend/index.html');
 });
+=======
+app.get('/events/get/all', function(req, res) {
+	Evnt.findAll().then(function(events) {
+		res.json(events);
+	});
+});
+
+app.get('/events/get/:id', function(req, res) {
+  Evnt.findById(req.params.id).then(function(events) {
+		res.json(events);
+	});
+});
+
+app.post('/events/add', function(req, res) {
+	// Evnt.create({name: req.})
+});
+
+app.get('/helloWorld', function (req, res) {
+  res.send('Hello World!')
+})
+
+app.get('/', function(req, res) {
+    res.sendfile('../frontend/index.html')
+})
 
 app.listen(3000, function () {
   console.log('EventGo started on http://localhost:3000')
