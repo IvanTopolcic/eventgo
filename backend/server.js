@@ -37,17 +37,19 @@ app.get('/events/get/all', function(req, res) {
 });
 
 app.get('/events/get/:id', function(req, res) {
-  Evnt.findById(req.params.id).then(function(events) {
+	Evnt.findById(req.params.id).then(function(events) {
 		res.json(events);
 	});
 });
 
 app.post('/events/add', function(req, res) {
-	// Evnt.create({name: req.})
+	Evnt.create(req.body).then(function(function(events) {
+		res.json(events);
+	});
 });
 
 app.get('/helloWorld', function (req, res) {
-  res.send('Hello World!')
+	res.send('Hello World!')
 })
 
 app.get('/',function(req,res){
