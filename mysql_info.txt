@@ -1,0 +1,4 @@
+hostname: best-ever.org
+username: EventGo
+password: asdf12345
+port: 3306 (default)
