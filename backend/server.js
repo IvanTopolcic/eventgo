@@ -30,11 +30,6 @@ var Attendee = sequelize.define('attendee', {
 
 sequelize.sync();
 
-<<<<<<< HEAD
-app.get('/',function(req,res){
-  res.sendFile('../frontend/index.html');
-});
-=======
 app.get('/events/get/all', function(req, res) {
 	Evnt.findAll().then(function(events) {
 		res.json(events);
@@ -55,9 +50,9 @@ app.get('/helloWorld', function (req, res) {
   res.send('Hello World!')
 })
 
-app.get('/', function(req, res) {
-    res.sendfile('../frontend/index.html')
-})
+app.get('/',function(req,res){
+    res.sendFile('../frontend/index.html');
+});
 
 app.listen(3000, function () {
   console.log('EventGo started on http://localhost:3000')
