@@ -30,7 +30,7 @@ var Attendee = sequelize.define('attendee', {
 sequelize.sync();
 
 app.get('/',function(req,res){
-  res.sendFile('/Users/puranikk/Documents/Repos/eventgo/frontend/index.html');
+  res.sendFile('../frontend/index.html');
 });
 
 app.listen(3000, function () {
