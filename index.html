@@ -48,7 +48,6 @@
 		setInterval(function() { $scope.$apply(getData);}, 1000);
 		getData();
     }]);
-
 </script>
 
 <body ng-app="myapp" ng-controller="EventListController">
@@ -76,7 +75,7 @@
                             </div>
                         </div>
                         <div class="event-finder__body" >
-                            <ul class="list-group">
+                            <ul class="nav list-group">
                                 <li ng-repeat="evnt in eventList | orderBy:'-population' | filter:searchEvent" class="list-group-item">
                                     <div class="eventgo-list-container container">
                                         <div class="row">

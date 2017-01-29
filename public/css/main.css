@@ -20,7 +20,7 @@ h3 {
 }
 
 html, body {
-	overflow-y: hidden;
+	overflow-y: scroll;
 	font-family: 'Open Sans', sans-serif;
 }
 
@@ -152,7 +152,6 @@ footer h4 {
 	outline: 0 none;
 }
 
-
 .event-finder-view .input-group-btn button:selected {
 	box-shadow: 0;
 	border: 0;
@@ -173,7 +172,12 @@ footer h4 {
 
 .event-finder__body .list-group .list-group-item {
 	border-radius: 0;
+}
+
+.event-finder__body .nav {
+	max-height: 620px;
 	overflow-y: scroll;
+	margin-bottom: 0px;
 }
 
 .eventgo-list-container {
@@ -242,7 +246,7 @@ input[type="color"]:focus,
 }
 
 .cookie-popup {
-
+	display: none;
 	min-height: 30px;
 	background: #777;
 }
