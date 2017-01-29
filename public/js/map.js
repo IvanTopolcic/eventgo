@@ -93,8 +93,12 @@ function handleLocationError(browserHasGeo, infoWindow, pos){
  */
 function postLocation(){
 	if (hasGeo && initialized) {
-		$.post("get_loc", JSON.stringify(pos), function(data){
-			console.log(JSON.stringify(pos));
+		var posss = JSON.stringify(pos);
+		tmp_pos = {};
+		tmp_pos['lat'] = pos.lat();
+		tmp_pos['lng'] = pos.lng();
+		$.post("get_loc", {'lat': 2, 'loc': 4}, function(data){
+			console.log('yo whattup');
 		});
 	}
 }
@@ -102,4 +106,4 @@ function postLocation(){
 /**
  * User location post.
  */
-var postInterval = setInterval(postLocation, 1000);
+var postInterval = setInterval(postLocation, 5000);
