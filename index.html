@@ -12,10 +12,9 @@
     <!-- Angular stuff-->
     <script src="/js/angular.min.js"></script>
     <script src="/js/angular-route.min.js"></script>
-    
-    
 
     <!--<script src="app.js"></script>-->
+    <script src="/js/js.cookie.js"></script>
     <script src="/js/map.js"></script>
 	<!-- Latest Font-awesome -->
     <link rel="stylesheet" href="//netdna.bootstrapcdn.com/font-awesome/4.0.0/css/font-awesome.css" />
@@ -31,27 +30,28 @@
     var myapp = angular.module('myapp', []);
 	var eventVar;
 
-    myapp.controller('EventListController', ['$scope', '$http', function($scope, $http) {
+    myapp.controller('EventListController', ['$scope', '$http', '$timeout', function($scope, $http, $timeout) {
         $scope.eventList = [];
-        $http.get('/events/get/all').then(function(events) {
-            console.log(events);
-            $scope.eventList = events.data;
-			eventVar = events.data;
-			loadPoints();
-        }).catch(function(err) {
-            console.log('err: ', err);
-        });
-    }]);
-
-    /*myapp.controller('', ['$scope', '$http', function($scope){
-        $scope.sortType     = 'name'; // set the default sort type
-        $scope.sortReverse  = false;  // set the default sort order
-        $scope.searchEvent   = '';     // set the default search/filter term
-
-        $scope.orderByMe = function(x) {
-            $scope.myOrderBy = x;
+        $scope.getData = function() {
+            $http.get('/events/get/all').then(function (events) {
+                console.log(events);
+                $scope.eventList = events.data;
+                eventVar = events.data;
+                loadPoints();
+            }).catch(function (err) {
+                console.log('err: ', err);
+            });
         }
-    }]);*/
+        // Function to replicate setInterval using $timeout service.
+        $scope.intervalFunction = function(){
+            $timeout(function() {
+                $scope.getData();
+                $scope.intervalFunction();
+            }, 1000)
+        };
+        // Kick off the interval
+        $scope.intervalFunction();
+    }]);
 
 </script>
 
@@ -132,7 +132,7 @@
                         </div>
                     </div>
                     <div class="col-sm-6">
-                        <div class="btn btn-default">
+                        <div id="refuse-btn" class="btn btn-default">
                             I Refuse Cookies
                         </div>
                     </div>
@@ -145,7 +145,11 @@
         $( document ).ready(function() {
             $("#accept-btn").click(function() {
                 $(".cookie-popup").hide();
-            })
+                Cookies.set('name', 'value', { expires: 7 });
+            });
+            $("#refuse-btn").click(function() {
+                $(".cookie-popup").hide();
+            });
         });
     </script>
 

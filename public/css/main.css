@@ -170,11 +170,6 @@ footer h4 {
 	box-shadow: 0;
 }
 
-.event-finder-view .input-group-btn button: {
-	box-shadow: 0;
-	border: 0;
-}
-
 .event-finder__body .list-group .list-group-item {
 	border-radius: 0;
 	overflow-y: scroll;
@@ -194,6 +189,7 @@ footer h4 {
 	font-size: 18px;
 	line-height: 30px;
 	color: #444;
+	font-weight: 700;
 }
 
 #event-info a:hover {
@@ -220,7 +216,7 @@ footer h4 {
 #event-population h4 {
 	text-align: center;
 	color: #888;
-	font-weight: thin;
+	font-weight: 100;
 }
 
 textarea:focus,
