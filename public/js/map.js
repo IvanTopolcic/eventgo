@@ -144,9 +144,9 @@ function loadPoints(){
 	}
 }
 
-google.maps.event.addDomListener(window, 'load', loadPoints);
+//google.maps.event.addDomListener(window, 'load', loadPoints);
 
 /**
  * User location post.
  */
-var postInterval = setInterval(postLocation, 1000);
+var postInterval = setInterval(postLocation, 2000);
