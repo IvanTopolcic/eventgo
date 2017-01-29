@@ -1,6 +1,7 @@
 var map;
 var infowindow;
 var position;
+var hasGeo = true;
 
 /**
  * Returns html for infowindow.
@@ -77,6 +78,7 @@ var test_data = [{title: 'FireGrill', lat:45.499920, lng: -73.575291,
  * To be called when user does not have geolocation.
  */
 function handleLocationError(browserHasGeo, infoWindow, pos){
+	hasGeo = false;
 	infoWindow.setPosition(pos);
 	infoWindow.setContent(browserHasGeo ?
 							'Error: Geolocation service failed.' :
@@ -87,9 +89,11 @@ function handleLocationError(browserHasGeo, infoWindow, pos){
  * Post users location.
  */
 function postLocation(){
-	$.post("get_loc", position, function(data){
-		console.log(data);
-	});
+	if(hasGeo){
+		$.post("get_loc", position, function(data){
+			console.log(data);
+		});	
+	}
 }
 
 /**
