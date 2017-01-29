@@ -1,7 +1,8 @@
 var map;
 var infowindow;
-var position;
+var pos;
 var hasGeo = true;
+var initialized = 0;
 
 /**
  * Returns html for infowindow.
@@ -26,9 +27,11 @@ function initMap() {
 	if (navigator.geolocation) {
 		navigator.geolocation.getCurrentPosition(function(position) {
 
-		var position = new google.maps.LatLng(
+		pos = new google.maps.LatLng(
 					position.coords.latitude,
 					position.coords.longitude);
+
+		initialized = 1;
 
 		map.setCenter(position);
 
@@ -89,15 +92,14 @@ function handleLocationError(browserHasGeo, infoWindow, pos){
  * Post users location.
  */
 function postLocation(){
-	if(hasGeo){
-		$.post("get_loc", position, function(data){
-			console.log(data);
-		});	
+	if (hasGeo && initialized) {
+		$.post("get_loc", JSON.stringify(pos), function(data){
+			console.log(JSON.stringify(pos));
+		});
 	}
 }
 
 /**
  * User location post.
  */
-var postInterval = setInterval(postLocation, 1000 * 10);
-
+var postInterval = setInterval(postLocation, 1000);
