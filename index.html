@@ -12,11 +12,12 @@
     <!-- Angular stuff-->
     <script src="/js/angular.min.js"></script>
     <script src="/js/angular-route.min.js"></script>
-    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDw0FytmYT_pRDVOFCyPk9GAJRzVXbew58&callback=initMap" async defer></script>
+    
+    
 
     <!--<script src="app.js"></script>-->
     <script src="/js/map.js"></script>
-    <!-- Latest Font-awesome -->
+	<!-- Latest Font-awesome -->
     <link rel="stylesheet" href="//netdna.bootstrapcdn.com/font-awesome/4.0.0/css/font-awesome.css" />
     <!-- Our CSS -->
     <link rel="stylesheet" href="/css/main.css" />
@@ -31,12 +32,15 @@
 </head>
 <script>
     var myapp = angular.module('myapp', []);
+	var eventVar;
 
     myapp.controller('EventListController', ['$scope', '$http', function($scope, $http) {
         $scope.eventList = [];
         $http.get('/events/get/all').then(function(events) {
             console.log(events);
             $scope.eventList = events.data;
+			eventVar = events.data
+			loadPoints();
         }).catch(function(err) {
             console.log('err: ', err);
         });
@@ -142,5 +146,6 @@
             <h4>Made with coffee <i id="coffee-icon" class="fa fa-coffee" aria-hidden="true"></i> and love <i id="love-icon" class="fa fa-heart" aria-hidden="true"></i> at McHacks 2017</h4>
         </div>
     </footer>
+	<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBDYC6yCadsAocxpXUAa5f1LAbJfue062I&callback=loadMap" async defer></script>
 </body>
 </html>

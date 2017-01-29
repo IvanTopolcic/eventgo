@@ -3,17 +3,22 @@ var infowindow;
 var pos;
 var hasGeo = true;
 var initialized = 0;
+var daysOfWeek = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'];
 
 /**
  * Returns html for infowindow.
  */
 function getInfoHTML(evnt) {
+	//var s = evnt.start.split(/[- :]/);
+	var start = new Date(evnt.start);
+	var stop = new Date(evnt.end);
+
 	return '<link rel="stylesheet" type="text/css" href="style/infostyle.css"><h1>' +
-		evnt.title + '</h1><h2>' + evnt.start +
-		' - ' + evnt.end + '</h2><h3>' + evnt.description +
+		evnt.name + '</h1><h2>' + daysOfWeek[start.getDay()] + ' ' + (start.getHours() % 12 || 12) + ':' + start.getMinutes() +
+		' - ' + (stop.getHours() % 12 || 12) + ':' + stop.getMinutes() + '</h2><h3>' + evnt.description +
 		'</h3>';}
 
-function initMap() {
+function loadMap() {
 	map = new google.maps.Map(document.getElementById('map'), {
   			center: {lat: 45.503751, lng: -73.577641},
   			zoom: 16,
@@ -33,8 +38,7 @@ function initMap() {
 					position.coords.longitude);
 
 		initialized = 1;
-
-		map.setCenter(position);
+		//map.setCenter({lat: position.coords.latitude, lng: position.coords.longitude});
 
 	}, function() {
 		handleLocationError(true, infoWindow, map.getCenter());
@@ -65,7 +69,7 @@ function addMarker(evnt){
 		anchor: new google.maps.Point(0, 0) // anchor
 	}
 	var marker = new google.maps.Marker({
-		position: new google.maps.LatLng(evnt.lat, evnt.lng),
+		position: new google.maps.LatLng(evnt.latitude, evnt.longitude),
 		icon: icon,
 		map: map,
 		title: evnt.name
@@ -105,10 +109,19 @@ function postLocation(){
 		tmp['lat'] = pos.lat();
 		tmp['lng'] = pos.lng();
 		$.post("get_loc", tmp, function(data){
-			console.log('yo whattup');
+			//console.log('yo whattup');
 		});
 	}
 }
+
+function loadPoints(){
+	for(var j = 0, e; e = eventVar[j]; j++){
+		addMarker(e);
+		console.log(e);
+	}
+}
+
+google.maps.event.addDomListener(window, 'load', loadPoints);
 
 /**
  * User location post.
