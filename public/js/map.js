@@ -1,6 +1,8 @@
 var map;
 var infowindow;
-var position;
+var pos;
+var hasGeo = true;
+var initialized = 0;
 
 /**
  * Returns html for infowindow.
@@ -25,9 +27,11 @@ function initMap() {
 	if (navigator.geolocation) {
 		navigator.geolocation.getCurrentPosition(function(position) {
 
-		var position = new google.maps.LatLng(
+		pos = new google.maps.LatLng(
 					position.coords.latitude,
 					position.coords.longitude);
+
+		initialized = 1;
 
 		map.setCenter(position);
 
@@ -77,6 +81,7 @@ var test_data = [{title: 'FireGrill', lat:45.499920, lng: -73.575291,
  * To be called when user does not have geolocation.
  */
 function handleLocationError(browserHasGeo, infoWindow, pos){
+	hasGeo = false;
 	infoWindow.setPosition(pos);
 	infoWindow.setContent(browserHasGeo ?
 							'Error: Geolocation service failed.' :
@@ -87,13 +92,17 @@ function handleLocationError(browserHasGeo, infoWindow, pos){
  * Post users location.
  */
 function postLocation(){
-	$.post("get_loc", position, function(data){
-		console.log(data);
-	});
+	if (hasGeo && initialized) {
+		var tmp = {};
+		tmp['lat'] = pos.lat();
+		tmp['lng'] = pos.lng();
+		$.post("get_loc", tmp, function(data){
+			console.log('yo whattup');
+		});
+	}
 }
 
 /**
  * User location post.
  */
-var postInterval = setInterval(postLocation, 1000 * 10);
-
+var postInterval = setInterval(postLocation, 5000);

@@ -8,10 +8,12 @@
     "angular": "^1.6.1",
     "angular-route": "^1.6.1",
     "body-parser": "^1.16.0",
+    "cookie-parser": "^1.4.3",
     "express": "^4.14.0",
     "mysql": "^2.13.0",
     "mysql2": "^1.1.2",
-    "sequelize": "^3.30.0"
+    "sequelize": "^3.30.0",
+    "uuid": "^3.0.1"
   },
   "devDependencies": {},
   "scripts": {
