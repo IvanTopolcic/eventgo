@@ -22,3 +22,78 @@ h3 {
 #eventgo-navbar {
     background-color: #2aa198;
 }
+
+#eventgo-navbar {
+	background-color: #ff7631;
+	border: none;
+	border-radius: 0px;
+	min-height: 75px;
+	margin-bottom: 0px;
+}
+
+#map{
+	height: 100%;
+	/*width: 100%;*/
+}
+
+.eventgo-navbar-container {
+	padding: 10px 0;
+}
+
+.navbar-header .navbar-brand {
+	font-size: 20px;
+	color: #f1f1f1;
+}
+
+.navbar-default .navbar-nav>li>a {
+	font-size: 16px;
+	color: #f1f1f1;
+}
+
+#eventgo-main {
+	position: absolute;
+	height: 100%;
+	width: 100%;
+	display: block;
+}
+
+#eventgo-main .eventFinderView {
+	height: 100%;
+	border-right: 2px solid #777;
+}
+
+.eventgo-container-fluid, .eventgo-container-fluid .row {
+	height: 100%;
+}
+
+footer {
+	position: fixed;
+	bottom: 0;
+	width: 100%;
+	min-height: 60px;
+	background-color: #333;
+}
+
+footer .eventgo-footer {
+	padding: 10px 0;
+}
+
+footer h4 {
+	text-align: center;
+	font-size: 18px;
+	font-weight: bold;
+	color: #f1f1f1;
+}
+
+#coffee-icon {
+	color: #B55A00;
+}
+
+#love-icon {
+	color: #ff0000;
+}
+
+.col-sm-4, .col-sm-8 {
+	padding-left: 0;
+	padding-right: 0;
+}

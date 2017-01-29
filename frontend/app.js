@@ -1,5 +1,5 @@
 'use strict';
 
 // Define the `eventgoApp` module
-var eventgoApp = angular.module('eventgoApp', []);
+var eventgoApp = angular.module('eventgoApp', [])
 
