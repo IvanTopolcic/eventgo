@@ -48,7 +48,8 @@ function loadMap() {
 		var userLoc = new google.maps.Marker({
 			position: pos,
 			map: map,
-			icon: 'images/userLoc.png'
+			icon: 'images/userLoc.png',
+			title: 'You'
 
 		});
 		map.setCenter(userLoc.getPosition());
