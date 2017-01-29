@@ -88,8 +88,6 @@ function updateEventCounts(fn, cookie, longitude, latitude) {
 	return closestEvent;
 };
 
-
-
 function handleClosestEvent(cookie, closestEvent) {
 	//var closestEvent = getClosestEvent(longitude, latitude);
 	//var millisSinceEpoch = Date.now();

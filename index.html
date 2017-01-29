@@ -30,27 +30,16 @@
     var myapp = angular.module('myapp', []);
 	var eventVar;
 
-    myapp.controller('EventListController', ['$scope', '$http', '$timeout', function($scope, $http, $timeout) {
+    myapp.controller('EventListController', ['$scope', '$http', function($scope, $http) {
         $scope.eventList = [];
-        $scope.getData = function() {
-            $http.get('/events/get/all').then(function (events) {
-                console.log(events);
-                $scope.eventList = events.data;
-                eventVar = events.data;
-                loadPoints();
-            }).catch(function (err) {
-                console.log('err: ', err);
-            });
-        }
-        // Function to replicate setInterval using $timeout service.
-        $scope.intervalFunction = function(){
-            $timeout(function() {
-                $scope.getData();
-                $scope.intervalFunction();
-            }, 1000)
-        };
-        // Kick off the interval
-        $scope.intervalFunction();
+        $http.get('/events/get/all').then(function (events) {
+            console.log(events);
+            $scope.eventList = events.data;
+            eventVar = events.data;
+            loadPoints();
+        }).catch(function (err) {
+            console.log('err: ', err);
+        })
     }]);
 
 </script>
@@ -62,12 +51,6 @@
                 <div class="navbar-header">
                     <img width="50%" height="50%" src="/images/banner.png" />
                 </div>
-
-                <!--<ul class="nav navbar-nav navbar-right">
-                    <li><a href="#"><i class="fa fa-home"></i> Home</a></li>
-                    <li><a href="#"><i class="fa fa-shield"></i> About</a></li>
-                    <!--<li><a href="#"><i class="fa fa-user"></i> Login</a></li>
-                </ul>-->
             </div>
         </nav>
     </header>
@@ -145,7 +128,6 @@
         $( document ).ready(function() {
             $("#accept-btn").click(function() {
                 $(".cookie-popup").hide();
-                Cookies.set('name', 'value', { expires: 7 });
             });
             $("#refuse-btn").click(function() {
                 $(".cookie-popup").hide();
