@@ -20,6 +20,7 @@ h3 {
 }
 
 html, body {
+	overflow-y: hidden;
 	font-family: 'Open Sans', sans-serif;
 }
 
