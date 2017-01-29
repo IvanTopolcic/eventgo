@@ -44,7 +44,14 @@ function loadMap() {
 					position.coords.longitude);
 
 		initialized = 1;
-		//map.setCenter({lat: position.coords.latitude, lng: position.coords.longitude});
+
+		var userLoc = new google.maps.Marker({
+			position: pos,
+			map: map,
+			icon: 'images/userLoc.png'
+
+		});
+		map.setCenter(userLoc.getPosition());
 
 	}, function() {
 		handleLocationError(true, infoWindow, map.getCenter());
