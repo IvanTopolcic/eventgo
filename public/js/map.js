@@ -1,6 +1,10 @@
 var map;
 var infowindow;
+var position;
 
+/**
+ * Returns html for infowindow.
+ */
 function getInfoHTML(evnt) {
 	return '<link rel="stylesheet" type="text/css" href="style/infostyle.css"><h1>' +
 		evnt.title + '</h1><h2>' + evnt.start +
@@ -21,11 +25,11 @@ function initMap() {
 	if (navigator.geolocation) {
 		navigator.geolocation.getCurrentPosition(function(position) {
 
-		var pos = new google.maps.LatLng(
+		var position = new google.maps.LatLng(
 					position.coords.latitude,
 					position.coords.longitude);
 
-		map.setCenter(pos);
+		map.setCenter(position);
 
 	}, function() {
 		handleLocationError(true, infoWindow, map.getCenter());
@@ -45,6 +49,9 @@ function initMap() {
 
 }
 
+/**
+ * Creates marker and infowindow listener.
+ */
 function addMarker(evnt){
 	var marker = new google.maps.Marker({
 		position: new google.maps.LatLng(evnt.lat, evnt.lng),
@@ -58,15 +65,35 @@ function addMarker(evnt){
 	});
 }
 
+/**
+ * Sample data.
+ */
 var test_data = [{title: 'FireGrill', lat:45.499920, lng: -73.575291,
 			start: '10:00pm', end: '2:00am', description: 'Wild and crazy times!'},
 				 {title: '3 Brasseurs', lat: 45.502004, lng: -73.570698,
 			start: '5:00pm', end: '11:00pm', description: 'Beer, beer, beer!'}];
 
-
+/**
+ * To be called when user does not have geolocation.
+ */
 function handleLocationError(browserHasGeo, infoWindow, pos){
 	infoWindow.setPosition(pos);
 	infoWindow.setContent(browserHasGeo ?
 							'Error: Geolocation service failed.' :
 							'Error: browser doesn\'t support geolocation.');
 }
+
+/**
+ * Post users location.
+ */
+function postLocation(){
+	$.post("get_loc", position, function(data){
+		console.log(data);
+	});
+}
+
+/**
+ * User location post.
+ */
+var postInterval = setInterval(postLocation, 1000 * 10);
+
