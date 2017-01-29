@@ -151,7 +151,7 @@ app.get('/helloWorld', function (req, res) {
 })
 
 app.get('/',function(req,res){
-    res.sendFile(__dirname + '/frontend/index.html');
+    res.sendFile(__dirname + '/index.html');
 });
 
 app.listen(3000, function () {
