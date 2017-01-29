@@ -19,7 +19,7 @@ function initMap() {
 	});
 
 	if (navigator.geolocation) {
-		navigator.geolocation.getCurrentPosition(function(position) {
+		navigator.geolocation.getCurrenxtPosition(function(position) {
 
 		var pos = new google.maps.LatLng(
 					position.coords.latitude,

@@ -2,7 +2,7 @@ var map;
 var infowindow;
 
 function getInfoHTML(evnt) {
-	return '<link rel="stylesheet" type="text/css" href="style/infostyle.css"><h1>' + 
+	return '<link rel="stylesheet" type="text/css" href="style/infostyle.css"><h1>' +
 		evnt.title + '</h1><h2>' + evnt.start +
 		' - ' + evnt.end + '</h2><h3>' + evnt.description +
 		'</h3>';}
@@ -22,7 +22,7 @@ function initMap() {
 		navigator.geolocation.getCurrentPosition(function(position) {
 
 		var pos = new google.maps.LatLng(
-					position.coords.latitude, 
+					position.coords.latitude,
 					position.coords.longitude);
 
 		map.setCenter(pos);
@@ -42,9 +42,9 @@ function initMap() {
 	for(var i = 0, evnt; evnt = test_data[i]; i++){
 		addMarker(evnt);
 	}
-	
+
 }
-	
+
 var iconBase = 'https://maps.google.com/mapfiles/kml/shapes/';
 var icons = {
 	'info': {
@@ -66,9 +66,9 @@ function addMarker(evnt){
 	});
 }
 
-var test_data = [{title: 'FireGrill', lat:45.499920, lng: -73.575291, 
+var test_data = [{title: 'FireGrill', lat:45.499920, lng: -73.575291,
 			start: '10:00pm', end: '2:00am', description: 'Wild and crazy times!'},
-				 {title: '3 Brasseurs', lat: 45.502004, lng: -73.570698, 
+				 {title: '3 Brasseurs', lat: 45.502004, lng: -73.570698,
 			start: '5:00pm', end: '11:00pm', description: 'Beer, beer, beer!'}];
 
 
@@ -78,5 +78,3 @@ function handleLocationError(browserHasGeo, infoWindow, pos){
 							'Error: Geolocation service failed.' :
 							'Error: browser doesn\'t support geolocation.');
 }
-
-
