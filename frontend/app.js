@@ -1,10 +1,6 @@
-'use strict';
+var myapp = angular.module('myapp', []);
 
-// Define the `eventgoApp` module
-var eventgoApp = angular.module('eventgoApp', []);
-
-// Define the `EventgoAppController` controller on the `eventgoApp` module
-eventgoApp.controller('EventgoAppController', function EventgoAppController($scope) {
+myapp.controller('EventListController', ['$scope', function($scope){
     $scope.evnts = [
         {
             name: "McKibbins Irish Pub",
@@ -18,5 +14,6 @@ eventgoApp.controller('EventgoAppController', function EventgoAppController($sco
             name: "Brutopia",
             location: "Rue Crescent, Montreal"
         }
-    ]
-});
+    ];
+}]);
+

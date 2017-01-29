@@ -1,12 +1,2 @@
-function EventFinderController() {
+// Define the `EventgoAppController` controller on the `eventgoApp` module
 
-}
-
-angular.module('eventgoApp').component('eventFinder', {
-    templateUrl: 'eventFinderViewTemplate.html',
-    controller: 'EventFinderController',
-    bindings: {
-        name: '=',
-        location: '='
-    }
-});
