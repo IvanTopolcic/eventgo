@@ -45,14 +45,6 @@ function initMap() {
 
 }
 
-var iconBase = 'https://maps.google.com/mapfiles/kml/shapes/';
-var icons = {
-	'info': {
-		icon: iconBase + 'info-i_maps.png'
-	}
-};
-
-
 function addMarker(evnt){
 	var marker = new google.maps.Marker({
 		position: new google.maps.LatLng(evnt.lat, evnt.lng),
