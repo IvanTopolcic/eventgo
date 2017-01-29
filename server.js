@@ -33,6 +33,13 @@ var Evnt = sequelize.define('event', {
 
 sequelize.sync();
 
+app.get('/mcgill', function(req, res) {
+	Evnt.findById(6).then(function(addEvnt) {
+		addEvnt.population++;
+		addEvnt.save();
+	});
+});
+
 app.post('/get_loc', function(req, res) {
 	//console.log(req.body);
 	if (req.cookies['userid'] == undefined) {
