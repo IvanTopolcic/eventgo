@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
-<head ng-app="eventgoApp">
+<head>
     <meta charset="UTF-8">
 
     <!-- Latest compiled and minified CSS -->
@@ -10,35 +10,71 @@
     <!-- Latest compiled and minified JavaScript -->
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
     <!-- Angular stuff-->
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.1/angular.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.1/angular-route.js"></script>
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDw0FytmYT_pRDVOFCyPk9GAJRzVXbew58&callback=initMap" async defer></script>
 
-    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.14/angular-route.js"></script>
-
+    <!--<script src="app.js"></script>-->
+    <script src="/js/map.js"></script>
     <!-- Latest Font-awesome -->
     <link rel="stylesheet" href="//netdna.bootstrapcdn.com/font-awesome/4.0.0/css/font-awesome.css" />
     <!-- Our CSS -->
     <link rel="stylesheet" href="/css/main.css" />
-    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDw0FytmYT_pRDVOFCyPk9GAJRzVXbew58&callback=initMap" async defer></script>
-    <script src="/js/map.js"></script>
-    <script src = "/js/angular.min.js"></script>
-    <script src = "/js/angular-route.min.js"></script>
+
+
+    <!--<script src = "/js/angular.min.js"></script>
+    <script src = "/js/angular-route.min.js"></script>-->
+
     <link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">
 
-    <title>EventGo: Find what's happening around now!</title>
+    <title>EventGo: Find what's happening near you now!</title>
 </head>
+<script>
+    var myapp = angular.module('myapp', []);
 
-<body ng-controller="">
+    myapp.controller('EventListController', ['$scope', function($scope){
+        $scope.sortType     = 'name'; // set the default sort type
+        $scope.sortReverse  = false;  // set the default sort order
+        $scope.searchEvent   = '';     // set the default search/filter term
+
+        $scope.evnts = [
+            {
+                id: 1,
+                name: "McKibbins Irish Pub",
+                location: "Blvd St. Laurent, Montreal"
+            },
+            {
+                id: 2,
+                name: "Tokyo",
+                location: "Blvd St. Laurent, Montreal"
+            },
+            {
+                id: 3,
+                name: "Brutopia",
+                location: "Rue Crescent, Montreal"
+            }
+        ];
+        $scope.orderByMe = function(x) {
+            $scope.myOrderBy = x;
+        }
+    }]);
+
+</script>
+
+<body ng-app="myapp" ng-controller="EventListController">
     <header>
         <nav id="eventgo-navbar" class="navbar navbar-default">
             <div class="eventgo-navbar-container container">
                 <div class="navbar-header">
+                    <img class="eventgo-icon" src="/images/event-icon.svg" />
                     <a class="navbar-brand" href="/">EventGo</a>
                 </div>
 
-                <ul class="nav navbar-nav navbar-right">
+                <!--<ul class="nav navbar-nav navbar-right">
                     <li><a href="#"><i class="fa fa-home"></i> Home</a></li>
                     <li><a href="#"><i class="fa fa-shield"></i> About</a></li>
-                    <li><a href="#"><i class="fa fa-user"></i> Login</a></li>
-                </ul>
+                    <!--<li><a href="#"><i class="fa fa-user"></i> Login</a></li>
+                </ul>-->
             </div>
         </nav>
     </header>
@@ -47,8 +83,36 @@
         <div class="eventgo-container-fluid">
             <div class="row">
                 <div class="col-sm-3">
-                    <event-finder></event-finder>
-                    This is where the list view goes
+                    <div class="event-finder-view">
+                        <div class="event-finder__header">
+                            <div class="input-group">
+                                <input type="text" class="form-control" placeholder="Find out what's poppin' now" ng-model="searchEvent">
+                                <span class="input-group-btn">
+                                    <button class="btn btn-default" type="button">Go!</button>
+                                </span>
+                            </div>
+                            <!--<div class="searchQuery">
+                                <p>{{searchEvent}}</p>
+                            </div>-->
+                        </div>
+                        <div class="event-finder__body">
+                            <ul class="list-group">
+                                <li ng-repeat="evnt in evnts | orderBy:sortType:sortReverse | filter:searchEvent" class="list-group-item">
+                                    <div class="eventgo-list-container container">
+                                        <div class="row">
+                                            <!--<div id="event-id" class="col-sm-1">
+                                                <p>{{evnt.id}}.</p>
+                                            </div>-->
+                                            <div id="event-info" class="col-sm-11">
+                                                <h3 id="event-name">{{evnt.name}}</h3>
+                                                <h4 id="event-location">{{evnt.location}}</h4>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
                 </div>
                 <div class="col-sm-9">
 					<div id="map"></div>
