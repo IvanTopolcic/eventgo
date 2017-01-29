@@ -92,6 +92,7 @@ function handleLocationError(browserHasGeo, infoWindow, pos){
  * Post users location.
  */
 function postLocation(){
+	console.log(navigator);
 	if (hasGeo && initialized) {
 		var tmp = {};
 		tmp['lat'] = pos.lat();
@@ -105,4 +106,4 @@ function postLocation(){
 /**
  * User location post.
  */
-var postInterval = setInterval(postLocation, 5000);
+var postInterval = setInterval(postLocation, 1000);

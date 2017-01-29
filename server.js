@@ -25,17 +25,23 @@ var Evnt = sequelize.define('event', {
 	},
 	end: {
 		type: Sequelize.DATE
+	},
+	population: {
+		type: Sequelize.INTEGER
 	}
 });
 
 sequelize.sync();
 
 app.post('/get_loc', function(req, res) {
+	console.log("OK22222");
+	console.log(req.body);
 	if (req.cookies['userid'] == undefined) {
 		res.cookie('userid', uuidV4());
 	}
-	//console.log(req.cookies['userid']);
+	console.log(req.cookies['userid']);
 	updateEventCounts(req.cookie, req.body.lng, req.body.lat);
+	res.send(req.body);
 });
 
 var userToEventToCount = {};
@@ -59,25 +65,26 @@ function deg2rad(deg) {
   return deg * (Math.PI/180)
 }
 
-function updateEventCounts(cookie, longitude, latitude) {
-	var closest = 10000;
+function getClosestEvent(longitude, latitude) {
+	var closest = Number.MAX_VALUE;
 	var closestEvent = null;
 	Evnt.findAll().then(function(events) {
-		events.forEach(function(currEvent) {
+		for(var currEvent in events) {
 			var distance = getDistanceFromLatLonInM(latitude, longitude, currEvent.latitude, currEvent.longitude);
-			if(distance < 100 && distance < closest) {
+			if(distance < 1000 && distance < closest) {
 				closest = distance;
 				closestEvent = currEvent;
 			}
-		});
-		console.log("CLOSEST FUCK: " + closest + " " + closestEvent);
-		help(cookie, closestEvent);
-		//return closestEvent;
+		}
 	});
+	return closestEvent;
 };
 
-function help(cookie, closestEvent) {
-	console.log("addEvent: " + closestEvent);
+
+
+function updateEventCounts(cookie, longitude, latitude) {
+	var closestEvent = getClosestEvent(longitude, latitude);
+	var millisSinceEpoch = Date.now();
 
 	if(!(cookie in userToEventToCount)) {
 		userToEventToCount[cookie] = {};
@@ -98,30 +105,10 @@ function help(cookie, closestEvent) {
 		eventToCount[addEvent.id] = 0;
 	}
 
-
-	console.log("removeEvent: " + removeEvent);
-	console.log("id: " + addEvent.id);
 	if(addEvent && !removeEvent) {
-		if(eventToCount[addEvent.id] == 10) {
-			console.log("AYYYYYY");
-			Evnt.findById(addEvent.id).then(function(addEvnt) {
-				addEvnt.population++;
-				addEvnt.save();
-			});
-		}
 		eventToCount[addEvent.id]++;
-		console.log("addEventCount: " + eventToCount[addEvent.id]);
-
 	} else if(!addEvent && removeEvent) {
-		if(eventToCount[removeEvent.id] == 11) {
-			Evnt.findById(removeEvent.id).then(function(rmvEvnt) {
-				rmvEvnt.population--;
-				rmvEvnt.save();
-			});
-		}
 		eventToCount[removeEvent.id]--;
-		console.log("removeEventCount: " + eventToCount[removeEvent.id]);
-
 	} else if(addEvent && removeEvent && addEvent.id != removeEvent.id) {
 		if(eventToCount[removeEvent.id] == 11) {
 			Evnt.findById(removeEvent.id).then(function(rmvEvnt) {
@@ -130,22 +117,16 @@ function help(cookie, closestEvent) {
 			});
 		}
 		eventToCount[removeEvent.id]--;
-		console.log("removeEventCount: " + eventToCount[removeEvent.id]);
 
-		if(eventToCount[addEvent.id] == 10) {
-			console.log("YOOOO");
+		// if(eventToCount[addEvent.id] == 10) {
 			Evnt.findById(addEvent.id).then(function(addEvnt) {
 				addEvnt.population++;
 				addEvnt.save();
 			});
-		}
+		// }
 		eventToCount[addEvent.id]++;
-		console.log("addEventCount: " + eventToCount[addEvent.id]);
-
 	}
-
-}
-
+};
 
 app.get('/events/get/all', function(req, res) {
 	Evnt.findAll().then(function(events) {
