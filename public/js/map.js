@@ -17,6 +17,7 @@ function initMap() {
 	map = new google.maps.Map(document.getElementById('map'), {
   			center: {lat: 45.503751, lng: -73.577641},
   			zoom: 16,
+			mapTypeControl: false,
 			/*styles: [
 				{elementType: 'geometry', stylers: [{color: '#242f3e'}]},
 				{elementType: 'labels.text.stroke', stylers: [{color: '#242f3e'}]},
@@ -57,9 +58,15 @@ function initMap() {
  * Creates marker and infowindow listener.
  */
 function addMarker(evnt){
+	var icon = {
+		url: "/images/circle.png", // url
+		scaledSize: new google.maps.Size(20, 20), // scaled size
+		origin: new google.maps.Point(0,0), // origin
+		anchor: new google.maps.Point(0, 0) // anchor
+	}
 	var marker = new google.maps.Marker({
 		position: new google.maps.LatLng(evnt.lat, evnt.lng),
-		icon: 'images/map_icon.png',
+		icon: icon,
 		map: map,
 		title: evnt.name
 	});

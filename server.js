@@ -129,6 +129,7 @@ function updateEventCounts(cookie, longitude, latitude) {
 };
 
 app.get('/events/get/all', function(req, res) {
+	console.log('test');
 	Evnt.findAll().then(function(events) {
 		res.json(events);
 	});

@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css?family=Open+Sans:300,400');
+
 h1 {
 	font-weight: bold;
 	padding: 0px;
@@ -19,6 +21,7 @@ h3 {
 
 html, body {
 	font-family: 'Open Sans', sans-serif;
+	overflow-y: hidden;
 }
 
 /* This file contains all the styling elements for the entire application */
@@ -48,12 +51,17 @@ html, body {
 
 .eventgo-navbar-container {
 	padding: 10px 0;
+	margin-left: 0px;
 }
 
 .navbar-header .navbar-brand {
 	font-size: 20px;
 	color: #f1f1f1;
 
+}
+
+.navbar-header {
+	left: 0;
 }
 
 .navbar-default .navbar-nav>li>a {
@@ -124,16 +132,53 @@ footer h4 {
 
 .event-finder-view .form-control {
 	border-radius: 0;
+	height: 50px;
+	border: none;
 }
 
-.event-finder-view .input-group-btn button {
-	border-radius: 0;
-	margin-left: 0;
-	margin-right: -1px;
+.form-control:focus {
+	box-shadow: 0;
+}
+
+.event-finder__header {
+	width: 100%;
+	border-right: 1px solid #ddd;
+	box-shadow: none;
+	outline: 0 none;
+}
+
+.none {
+	box-shadow: none;
+	outline: 0 none;
+}
+
+
+.event-finder-view .input-group-btn button:selected {
+	box-shadow: 0;
+	border: 0;
+	box-shadow: none;
+	outline: 0 none;
+}
+
+.input-group {
+	width: 100%;
+	border: 0;
+	box-shadow: none;
+	outline: 0 none;
+}
+
+.input-group:selected {
+	box-shadow: 0;
+}
+
+.event-finder-view .input-group-btn button: {
+	box-shadow: 0;
+	border: 0;
 }
 
 .event-finder__body .list-group .list-group-item {
 	border-radius: 0;
+	overflow-y: scroll;
 }
 
 .eventgo-list-container {
@@ -147,7 +192,15 @@ footer h4 {
 }
 
 #event-info a {
-	font-size: 19px;
+	font-size: 18px;
+	line-height: 30px;
+	color: #444;
+}
+
+#event-info a:hover {
+	cursor: pointer;
+	text-decoration: none;
+	color: #ff7631;
 }
 
 #event-id {
@@ -156,18 +209,38 @@ footer h4 {
 }
 
 #event-population {
-	width: 36px;
-	height: 36px;
+	width: 40px;
+	height: 40px;
 	background: #f1f1f1;
-	border-radius: 50%;
-	box-shadow: 0px 0px 10px rgba(0,0,0,0.6);
 	position: absolute;
 	margin-top: -4px;
+	border-radius: 2px;
+	margin-left: 25px;
 }
 
 #event-population h4 {
-	position: absolute;
-	top: -2px;
-	left: 8px;
-	font-weight: bold;
+	text-align: center;
+	color: #888;
+	font-weight: thin;
+}
+
+textarea:focus,
+input[type="text"]:focus,
+input[type="password"]:focus,
+input[type="datetime"]:focus,
+input[type="datetime-local"]:focus,
+input[type="date"]:focus,
+input[type="month"]:focus,
+input[type="time"]:focus,
+input[type="week"]:focus,
+input[type="number"]:focus,
+input[type="email"]:focus,
+input[type="url"]:focus,
+input[type="search"]:focus,
+input[type="tel"]:focus,
+input[type="color"]:focus,
+.uneditable-input:focus {
+  border-color: rgba(126, 239, 104, 0.8);
+  box-shadow: none;
+  outline: 0 none;
 }

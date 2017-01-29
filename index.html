@@ -10,8 +10,8 @@
     <!-- Latest compiled and minified JavaScript -->
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
     <!-- Angular stuff-->
-    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.1/angular.js"></script>
-    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.1/angular-route.js"></script>
+    <script src="/js/angular.min.js"></script>
+    <script src="/js/angular-route.min.js"></script>
     <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDw0FytmYT_pRDVOFCyPk9GAJRzVXbew58&callback=initMap" async defer></script>
 
     <!--<script src="app.js"></script>-->
@@ -59,8 +59,7 @@
         <nav id="eventgo-navbar" class="navbar navbar-default">
             <div class="eventgo-navbar-container container">
                 <div class="navbar-header">
-                    <img class="eventgo-icon" src="/images/event-icon.svg" />
-                    <a class="navbar-brand" href="/">EventGo</a>
+                    <img width="50%" height="50%" src="/images/banner.png" />
                 </div>
 
                 <!--<ul class="nav navbar-nav navbar-right">
@@ -80,9 +79,9 @@
                         <div class="event-finder__header">
                             <div class="input-group">
                                 <input type="text" class="form-control" placeholder="Find out what's poppin' now" ng-model="searchEvent">
-                                <span class="input-group-btn">
+                                <!-- <span class="input-group-btn">
                                     <button class="btn btn-default" type="button">Go!</button>
-                                </span>
+                                </span> -->
                             </div>
                             <!--<div class="searchQuery">
                                 <p>{{searchEvent}}</p>
@@ -93,9 +92,9 @@
                                 <li ng-repeat="evnt in eventList | orderBy:'-population' | filter:searchEvent" class="list-group-item">
                                     <div class="eventgo-list-container container">
                                         <div class="row">
-                                            <div id="event-id" class="col-sm-1">
+                                            <!-- <div id="event-id" class="col-sm-1">
                                                 <p>{{evnt.id}}.</p>
-                                            </div>
+                                            </div> -->
                                             <div id="event-info" class="col-sm-9">
                                                 <a id="event-name">{{evnt.name}}</a>
                                                 <!--<h4 id="event-location">{{evnt.location}}</h4>-->
