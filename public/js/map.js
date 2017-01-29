@@ -28,6 +28,15 @@ function loadMap() {
 	map = new google.maps.Map(document.getElementById('map'), {
   			center: {lat: 45.503751, lng: -73.577641},
   			zoom: 16,
+			styles: [
+				{
+					featureType: 'poi',
+					elementType: 'labels',
+					stylers: [
+						{ 'visibility': 'off' }
+					]
+				}
+			],
 			mapTypeControl: false,
 			/*styles: [
 				{elementType: 'geometry', stylers: [{color: '#242f3e'}]},
@@ -66,9 +75,9 @@ function loadMap() {
 			content: ''
 	});
 
-	for(var i = 0, evnt; evnt = test_data[i]; i++){
-		addMarker(evnt);
-	}
+	// for(var i = 0, evnt; evnt = test_data[i]; i++){
+	// 	addMarker(evnt);
+	// }
 
 }
 
@@ -93,15 +102,24 @@ function addMarker(evnt){
 		infowindow.open(map, marker);
 	});
 
+	// var marker2 = new google.maps.Marker({
+	// 	position: new google.maps.LatLng(45.503751, -73.577641),
+	// 	icon: icon,
+	// 	map: map,
+	// 	title: 'my 2nd title'
+	// });
+	//google.maps.event.addDomListener(document.getElementById("event-name"), "click", function(ev) {
+	//	map.setCenter(marker2.getPosition());
+	//});
 }
 
 /**
  * Sample data.
  */
-var test_data = [{title: 'FireGrill', lat:45.499920, lng: -73.575291,
-			start: '10:00pm', end: '2:00am', description: 'Wild and crazy times!'},
-				 {title: '3 Brasseurs', lat: 45.502004, lng: -73.570698,
-			start: '5:00pm', end: '11:00pm', description: 'Beer, beer, beer!'}];
+// var test_data = [{title: 'FireGrill', lat:45.499920, lng: -73.575291,
+// 			start: '10:00pm', end: '2:00am', description: 'Wild and crazy times!'},
+// 				 {title: '3 Brasseurs', lat: 45.502004, lng: -73.570698,
+// 			start: '5:00pm', end: '11:00pm', description: 'Beer, beer, beer!'}];
 
 /**
  * To be called when user does not have geolocation.
@@ -135,9 +153,19 @@ function loadPoints(){
 	}
 }
 
+function getEvents() {
+	$.get('/events/get/all', function(events) {
+		console.log('same');
+		eventVar = events;
+		loadPoints();
+	});
+}
+
 //google.maps.event.addDomListener(window, 'load', loadPoints);
 
 /**
  * User location post.
  */
 var postInterval = setInterval(postLocation, 2000);
+
+var getInterval = setInterval(getEvents, 2000);

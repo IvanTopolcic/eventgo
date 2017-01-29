@@ -14,16 +14,12 @@
     <script src="/js/angular-route.min.js"></script>
 
     <!--<script src="app.js"></script>-->
-    <script src="/js/js.cookie.js"></script>
     <script src="/js/map.js"></script>
 	<!-- Latest Font-awesome -->
     <link rel="stylesheet" href="//netdna.bootstrapcdn.com/font-awesome/4.0.0/css/font-awesome.css" />
     <!-- Our CSS -->
     <link rel="stylesheet" href="/css/main.css" />
 
-
-    <!--<script src = "/js/angular.min.js"></script>
-    <script src = "/js/angular-route.min.js"></script>-->
     <title>EventGo: Find what's happening near you now!</title>
 </head>
 <script>
@@ -77,12 +73,12 @@
                                                 <p>{{i}}.</p>
                                             </div>-->
                                             <div id="event-info" class="col-sm-9">
-                                                <a id="event-name">{{evnt.name}}</a>
+                                                <a id="event-name">{{ evnt.name }}</a>
                                                 <!--<h4 id="event-location">{{evnt.location}}</h4>-->
                                             </div>
                                             <div class="col-sm-2">
                                                 <div id="event-population">
-                                                    <h4>{{evnt.population}}</h4>
+                                                    <h4>{{ evnt.population }}</h4>
                                                 </div>
                                             </div>
                                         </div>
