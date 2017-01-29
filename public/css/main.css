@@ -21,7 +21,6 @@ h3 {
 
 html, body {
 	font-family: 'Open Sans', sans-serif;
-	overflow-y: hidden;
 }
 
 /* This file contains all the styling elements for the entire application */
@@ -249,4 +248,10 @@ input[type="color"]:focus,
 	position: fixed;
 	min-height: 60px;
 	background: #777;
+}
+
+@media only screen and (max-width: 767px) {
+	.col-sm-3, .col-sm-9 {
+		width: 100%;
+	}
 }
