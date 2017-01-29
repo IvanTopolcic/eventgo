@@ -32,32 +32,27 @@
 <script>
     var myapp = angular.module('myapp', []);
 
-    myapp.controller('EventListController', ['$scope', function($scope){
+    myapp.controller('EventListController', ['$scope', '$http', function($scope, $http) {
+        $scope.eventList = [];
+        $http.get('/events/get/all').then(function(events) {
+           console.log(events);
+            $scope.eventList = events.data;
+        }).catch(function(err) {
+            console.log('err: ', err);
+        });
+    }]);
+
+
+
+    /*myapp.controller('', ['$scope', '$http', function($scope){
         $scope.sortType     = 'name'; // set the default sort type
         $scope.sortReverse  = false;  // set the default sort order
         $scope.searchEvent   = '';     // set the default search/filter term
 
-        $scope.evnts = [
-            {
-                id: 1,
-                name: "McKibbins Irish Pub",
-                location: "Blvd St. Laurent, Montreal"
-            },
-            {
-                id: 2,
-                name: "Tokyo",
-                location: "Blvd St. Laurent, Montreal"
-            },
-            {
-                id: 3,
-                name: "Brutopia",
-                location: "Rue Crescent, Montreal"
-            }
-        ];
         $scope.orderByMe = function(x) {
             $scope.myOrderBy = x;
         }
-    }]);
+    }]);*/
 
 </script>
 
@@ -95,17 +90,20 @@
                                 <p>{{searchEvent}}</p>
                             </div>-->
                         </div>
-                        <div class="event-finder__body">
+                        <div class="event-finder__body" >
                             <ul class="list-group">
-                                <li ng-repeat="evnt in evnts | orderBy:sortType:sortReverse | filter:searchEvent" class="list-group-item">
+                                <li ng-repeat="evnt in eventList | filter:searchEvent" class="list-group-item">
                                     <div class="eventgo-list-container container">
                                         <div class="row">
-                                            <!--<div id="event-id" class="col-sm-1">
+                                            <div id="event-id" class="col-sm-1">
                                                 <p>{{evnt.id}}.</p>
-                                            </div>-->
-                                            <div id="event-info" class="col-sm-11">
+                                            </div>
+                                            <div id="event-info" class="col-sm-9">
                                                 <h3 id="event-name">{{evnt.name}}</h3>
                                                 <h4 id="event-location">{{evnt.location}}</h4>
+                                            </div>
+                                            <div id="event-population" class="col-sm-2">
+                                                <p>{{evnt.population}}</p>
                                             </div>
                                         </div>
                                     </div>
