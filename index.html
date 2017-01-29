@@ -25,9 +25,6 @@
 
     <!--<script src = "/js/angular.min.js"></script>
     <script src = "/js/angular-route.min.js"></script>-->
-
-    <link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">
-
     <title>EventGo: Find what's happening near you now!</title>
 </head>
 <script>
@@ -39,8 +36,13 @@
         $http.get('/events/get/all').then(function(events) {
             console.log(events);
             $scope.eventList = events.data;
-			eventVar = events.data
+			eventVar = events.data;
+            var ID = eventVar.length;
+            alert(ID);
 			loadPoints();
+            $scope.getID = function(id) {
+                return new Array(id);
+            }
         }).catch(function(err) {
             console.log('err: ', err);
         });
@@ -59,6 +61,25 @@
 </script>
 
 <body ng-app="myapp" ng-controller="EventListController">
+    <div class="cookie-popup">
+        <div class="container">
+            <div class="row cookie-message">
+                <h4>This site uses cookies and your location to find out awesome events happening near you now.</h4>
+            </div>
+            <div class="row buttons">
+                <div class="col-sm-6">
+                    <div class="btn btn-default">
+                        I Accept Cookies
+                    </div>
+                </div>
+                <div class="col-sm-6">
+                    <div class="btn btn-default">
+                        I Refuse Cookies
+                </div>
+            </div>
+        </div>
+        </div>
+    </div>
     <header>
         <nav id="eventgo-navbar" class="navbar navbar-default">
             <div class="eventgo-navbar-container container">
@@ -78,7 +99,7 @@
     <div class="eventgo-main">
         <div class="eventgo-container-fluid">
             <div class="row">
-                <div class="col-sm-3">
+                <div class="col-xs-12 col-sm-3">
                     <div class="event-finder-view">
                         <div class="event-finder__header">
                             <div class="input-group">
@@ -87,18 +108,15 @@
                                     <button class="btn btn-default" type="button">Go!</button>
                                 </span> -->
                             </div>
-                            <!--<div class="searchQuery">
-                                <p>{{searchEvent}}</p>
-                            </div>-->
                         </div>
                         <div class="event-finder__body" >
                             <ul class="list-group">
                                 <li ng-repeat="evnt in eventList | orderBy:'-population' | filter:searchEvent" class="list-group-item">
                                     <div class="eventgo-list-container container">
                                         <div class="row">
-                                            <!-- <div id="event-id" class="col-sm-1">
-                                                <p>{{evnt.id}}.</p>
-                                            </div> -->
+                                            <div id="event-id" ng-repeat="i in evnt.id"class="col-sm-1">
+                                                <p>i.</p>
+                                            </div>
                                             <div id="event-info" class="col-sm-9">
                                                 <a id="event-name">{{evnt.name}}</a>
                                                 <!--<h4 id="event-location">{{evnt.location}}</h4>-->
@@ -115,7 +133,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-sm-9">
+                <div class="col-xs-12 col-sm-9">
 					<div id="map"></div>
                 </div>
             </div>
@@ -124,7 +142,7 @@
 
     <footer>
         <div class="eventgo-footer">
-            <h4>Made with coffee <i id="coffee-icon" class="fa fa-coffee" aria-hidden="true"></i> and love <i id="love-icon" class="fa fa-heart" aria-hidden="true"></i> at McHacks 2017</h4>
+            <h4>Made with <span id="changing-text"></span> <i id="coffee-icon" class="fa fa-coffee" aria-hidden="true"></i> and love <i id="love-icon" class="fa fa-heart" aria-hidden="true"></i> at McHacks 2017</h4>
         </div>
     </footer>
 	<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBDYC6yCadsAocxpXUAa5f1LAbJfue062I&callback=loadMap" async defer></script>
