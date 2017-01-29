@@ -71,7 +71,7 @@ function getClosestEvent(longitude, latitude) {
 	return closestEvent;
 };
 
-/*
+
 
 function updateEventCounts(cookie, longitude, latitude) {
 	var closestEvent = getClosestEvent(longitude, latitude);
@@ -79,33 +79,46 @@ function updateEventCounts(cookie, longitude, latitude) {
 
 	if(!(cookie in userToEventToCount)) {
 		userToEventToCount[cookie] = {};
-		userToEventDeque = [];
+		userToEventDeque[cookie] = [];
 	}
 
 	var eventToCount = userToEventToCount[cookie];
 	var eventDeque = userToEventDeque[cookie];
 
-	if(userToEventDeque.length < 20) {
-		userToEventDeque.push(closestEvent);
-		if(closestEvent) {
-			if(!(closestEvent in eventToCount)) {
-				eventToCount = {};
-			}
-			if(eventToCount[closestEvent] == 10) {
-				/ / / / / / /  / / / / / / / /  / / / / add to events counter in database
-			}
-			eventToCount[closestEvent]++;
+	var addEvent = closestEvent;
+	var removeEvent = null;
+	if(userToEventDeque == 20) {
+		removeEvent = eventDeque.shift();
+	}
+	userToEventDeque.push(addEvent);
+
+	if(addEvent && !(addEvent.id in eventToCount)) {
+		eventToCount[addEvent.id] = 0;
+	}
+
+	if(addEvent && !removeEvent) {
+		eventToCount[addEvent.id]++;
+	} else if(!addEvent && removeEvent) {
+		eventToCount[removeEvent.id]--;
+	} else if(addEvent && removeEvent && addEvent.id != removeEvent.id) {
+		if(eventToCount[removeEvent.id] == 11) {
+			Evnt.findById(removeEvent.id).then(function(rmvEvnt) {
+				rmvEvnt.population--;
+				rmvEvnt.save;
+			});
 		}
-
-	} else {
-
-
-
+		eventToCount[removeEvent.id]--;
+		if(eventToCount[addEvent.id] == 10) {
+			Evnt.findById(addEvent.id).then(function(addEvnt) {
+				addEvnt.population++;
+			});
+		}
+		eventToCount[addEvent.id]++;
 	}
 
 };
 
-*/
+
 
 
 app.get('/events/get/all', function(req, res) {
