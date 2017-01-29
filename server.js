@@ -31,12 +31,13 @@ var Evnt = sequelize.define('event', {
 sequelize.sync();
 
 app.post('/get_loc', function(req, res) {
+	console.log(req.body);
 	if (req.cookies['userid'] == undefined) {
 		res.cookie('userid', uuidV4());
 	}
-	console.log(req.cookies['userid']);
+	//console.log(req.cookies['userid']);
 	res.json({});
-	// updateEventCounts(req.cookie, req.body.position.longitude, req.body.position.latitude);
+	updateEventCounts(req.cookie, req.body.lng, req.body.lat);
 });
 
 var userToEventToCount = {};
@@ -66,7 +67,7 @@ function getClosestEvent(longitude, latitude) {
 	Evnt.findAll().then(function(events) {
 		for(var currEvent in events) {
 			var distance = getDistanceFromLatLonInM(latitude, longitude, currEvent.latitude, currEvent.longitude);
-			if(distance < 25 && distance < closest) {
+			if(distance < 1000 && distance < closest) {
 				closest = distance;
 				closestEvent = currEvent;
 			}
@@ -91,10 +92,10 @@ function updateEventCounts(cookie, longitude, latitude) {
 
 	var addEvent = closestEvent;
 	var removeEvent = null;
-	if(userToEventDeque == 20) {
+	if(eventDeque.length == 20) {
 		removeEvent = eventDeque.shift();
 	}
-	userToEventDeque.push(addEvent);
+	eventDeque.push(addEvent);
 
 	if(addEvent && !(addEvent.id in eventToCount)) {
 		eventToCount[addEvent.id] = 0;
@@ -112,9 +113,11 @@ function updateEventCounts(cookie, longitude, latitude) {
 			});
 		}
 		eventToCount[removeEvent.id]--;
+
 		if(eventToCount[addEvent.id] == 10) {
 			Evnt.findById(addEvent.id).then(function(addEvnt) {
 				addEvnt.population++;
+				addEvnt.save;
 			});
 		}
 		eventToCount[addEvent.id]++;
