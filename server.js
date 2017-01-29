@@ -7,7 +7,7 @@ var cookieParser = require('cookie-parser')
 const uuidV4 = require('uuid/v4');
 
 app.use(cookieParser())
-app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: false }));
 app.use(express.static('public'))
 
 var Evnt = sequelize.define('event', {
@@ -36,7 +36,6 @@ app.post('/get_loc', function(req, res) {
 		res.cookie('userid', uuidV4());
 	}
 	//console.log(req.cookies['userid']);
-	res.json({});
 	updateEventCounts(req.cookie, req.body.lng, req.body.lat);
 });
 

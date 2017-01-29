@@ -93,11 +93,10 @@ function handleLocationError(browserHasGeo, infoWindow, pos){
  */
 function postLocation(){
 	if (hasGeo && initialized) {
-		var posss = JSON.stringify(pos);
-		tmp_pos = {};
-		tmp_pos['lat'] = pos.lat();
-		tmp_pos['lng'] = pos.lng();
-		$.post("get_loc", {'lat': 2, 'loc': 4}, function(data){
+		var tmp = {};
+		tmp['lat'] = pos.lat();
+		tmp['lng'] = pos.lng();
+		$.post("get_loc", tmp, function(data){
 			console.log('yo whattup');
 		});
 	}
