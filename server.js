@@ -5,6 +5,7 @@ var sequelize = new Sequelize('mysql://eventgo:asdf12345@best-ever.org:3306/even
 var bodyParser = require('body-parser');
 
 app.use(bodyParser.json());
+app.use(express.static('public'))
 
 var Evnt = sequelize.define('event', {
 	name: {
