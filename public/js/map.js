@@ -5,6 +5,13 @@ var hasGeo = true;
 var initialized = 0;
 var daysOfWeek = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'];
 
+function getMinutes(mins){
+	if(mins/10 < 1){
+		return '0' + mins;
+	}
+	return mins
+}
+
 /**
  * Returns html for infowindow.
  */
@@ -13,10 +20,9 @@ function getInfoHTML(evnt) {
 	var start = new Date(evnt.start);
 	var stop = new Date(evnt.end);
 
-	return '<link rel="stylesheet" type="text/css" href="style/infostyle.css"><h1>' +
-		evnt.name + '</h1><h2>' + daysOfWeek[start.getDay()] + ' ' + (start.getHours() % 12 || 12) + ':' + start.getMinutes() +
-		' - ' + (stop.getHours() % 12 || 12) + ':' + stop.getMinutes() + '</h2><h3>' + evnt.description +
-		'</h3>';}
+	return '<h1>' +
+		evnt.name + '</h1><h2>' + daysOfWeek[start.getDay()] + ' ' + (start.getHours() % 12 || 12) + ':' + getMinutes(start.getMinutes()) +
+		' - ' + (stop.getHours() % 12 || 12) + ':' + getMinutes(stop.getMinutes()) + '</h2><h3>' + 			evnt.population + ' people </h3>';}
 
 function loadMap() {
 	map = new google.maps.Map(document.getElementById('map'), {
@@ -117,7 +123,6 @@ function postLocation(){
 function loadPoints(){
 	for(var j = 0, e; e = eventVar[j]; j++){
 		addMarker(e);
-		console.log(e);
 	}
 }
 
