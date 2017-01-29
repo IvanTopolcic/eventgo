@@ -3,9 +3,10 @@ var app = express();
 var Sequelize = require('sequelize');
 var sequelize = new Sequelize('mysql://eventgo:asdf12345@best-ever.org:3306/eventgo');
 var bodyParser = require('body-parser');
+var cookieParser = require('cookie-parser')
+const uuidV4 = require('uuid/v4');
 
-
-
+app.use(cookieParser())
 app.use(bodyParser.json());
 app.use(express.static('public'))
 
@@ -27,12 +28,15 @@ var Evnt = sequelize.define('event', {
 	}
 });
 
-
-
 sequelize.sync();
 
-app.post('/getLocation/', function(req, res) {
-	updateEventCounts(req.cookie, req.body.position.longitude, req.body.position.latitude);
+app.post('/get_loc', function(req, res) {
+	if (req.cookies['userid'] == undefined) {
+		res.cookie('userid', uuidV4());
+	}
+	console.log(req.cookies['userid']);
+	res.json({});
+	// updateEventCounts(req.cookie, req.body.position.longitude, req.body.position.latitude);
 });
 
 var userToEventToCount = {};
