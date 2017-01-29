@@ -92,6 +92,16 @@ function addMarker(evnt){
 		infowindow.setContent(getInfoHTML(evnt));
 		infowindow.open(map, marker);
 	});
+
+	var marker2 = new google.maps.Marker({
+		position: new google.maps.LatLng(45.503751, -73.577641),
+		icon: icon,
+		map: map,
+		title: 'my 2nd title'
+	});
+	google.maps.event.addDomListener(document.getElementById("event-name"), "click", function(ev) {
+		map.setCenter(marker2.getPosition());
+	});
 }
 
 /**
