@@ -36,6 +36,17 @@
         }).catch(function (err) {
             console.log('err: ', err);
         })
+
+		var getData = function(){
+			$http.get('/events/get/all').then(function (events) {
+				console.log(events);
+				$scope.eventList = events.data;
+				eventVar = events.data;
+				loadPoints();
+			})
+		};
+		setInterval(function() { $scope.$apply(getData);}, 1000);
+		getData();
     }]);
 
 </script>
