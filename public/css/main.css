@@ -177,6 +177,7 @@ footer h4 {
 .event-finder__body .nav {
 	max-height: 620px;
 	overflow-y: scroll;
+	margin-bottom: 0px;
 }
 
 .eventgo-list-container {
@@ -245,7 +246,7 @@ input[type="color"]:focus,
 }
 
 .cookie-popup {
-
+	display: none;
 	min-height: 30px;
 	background: #777;
 }
